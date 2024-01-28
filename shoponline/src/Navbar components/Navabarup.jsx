@@ -1,11 +1,23 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCircleChevronDown} from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
+import Dropdown from "./Dropdown"
 
 const Navabarup = () => {
   return (
-    <div className='flex h-16 bg-black text-white items-center '>
-      <button className='text-2xl ml-3'>NPR <span><FontAwesomeIcon icon={faCircleChevronDown} /></span></button>
+    <div className='flex h-8 bg-black text-white items-center justify-between'>
+    <Dropdown/>
+      {/* signup and login component */}
+      <div className=" text-white block text-xs mr-[10px] md:mr-[25px]">
+        <Link to="/signup" className="mx-2">
+          Singup
+        </Link>
+        <Link to="/login" className="mx-2 mr-5">
+          Login
+        </Link>
+      </div>
+
     </div>
   )
 }

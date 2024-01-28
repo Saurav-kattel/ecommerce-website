@@ -1,11 +1,57 @@
-import React from 'react'
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+
+const collection = [
+  {
+    img: require("../pictures/Banner-Acer_Primary-Hero-L.webp"),
+  },
+  {
+    img: require("../pictures/macbook_air_m1__dxctrdvvxm4i_large.jpg"),
+  },
+  { img: require("../pictures/23_09_14_Innov_GaminLaptops-3.avif") },
+  { img: require("../pictures/acer-laptop-swift-go-Intel-main-banner-3_Primary-Hero-L.webp") },
+];
 
 const Imageslider = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const [current, setCurrent] = useState(0);
+  const length = collection.length;
 
-export default Imageslider
+
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
+
+  return (
+    <section className=" slider flex items-center justify-center relative mt-10  ml-9 mr-9">
+      <FontAwesomeIcon
+        icon={faAngleLeft}
+        className="left-arrow size-10 absolute left-0 md-left-7 hover:text-white"
+        onClick={prevSlide}
+      />
+
+      {collection.map(({ img}, index) => {
+        return (
+          <div
+            className={`slide ${
+              index === current ? "active" : ""
+            } transition-opacity duration-300 ease-in-out`}
+            key={index}>
+            {index === current && <img src={img} alt="" className="h-5/6 rounded-2xl" />}
+          </div>
+        );
+      })}
+      <FontAwesomeIcon
+        icon={faAngleRight}
+        className="right-arrow size-10 absolute right-0 hover:text-white md-8"
+        onClick={nextSlide}
+      />
+    </section>
+  );
+};
+
+export default Imageslider;
