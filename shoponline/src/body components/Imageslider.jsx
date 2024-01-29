@@ -4,13 +4,8 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const collection = [
   {
-    img: require("../pictures/Banner-Acer_Primary-Hero-L.webp"),
-  },
-  {
     img: require("../pictures/macbook_air_m1__dxctrdvvxm4i_large.jpg"),
   },
-  { img: require("../pictures/23_09_14_Innov_GaminLaptops-3.avif") },
-  { img: require("../pictures/acer-laptop-swift-go-Intel-main-banner-3_Primary-Hero-L.webp") },
 ];
 
 const Imageslider = () => {
@@ -39,7 +34,7 @@ const Imageslider = () => {
           <div
             className={`slide ${
               index === current ? "active" : ""
-            } transition-opacity duration-300 ease-in-out`}
+            } transition-opacity duration-500 ease-in-out`}
             key={index}>
             {index === current && <img src={img} alt="" className="h-5/6 rounded-2xl" />}
           </div>

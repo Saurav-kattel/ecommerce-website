@@ -8,7 +8,7 @@ import Login from './Navbar components/Login';
 import Addtocart from './Navbar components/Addtocart';
 import Signup from './Navbar components/Signup';
 import Navabarup from './Navbar components/Navabarup';
-import Imageslider from './body components/Imageslider';
+import Body from './body components/Body';
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +23,7 @@ function App() {
       <Route exact path='/signup' element={<Signup/>}/>
       <Route exact path='/addtocart' element={<Addtocart/>}/>
       </Routes>
-    <Imageslider/>
+      <Body/>
       </div>
       </BrowserRouter>
   );
