@@ -15,13 +15,13 @@ const Laptops = () => {
 ];
 
   return (
-    <div className='ml-10 mt-10'>
+    <div className='ml-10 mt-10 h-'>
         <div className='flex justify-between'>
         <h3 className='font-semibold text-xl'>Laptops</h3>
         <h3 className='mr-12  hover:underline text-blue-800'>View all</h3>
         </div>
 
-    <div className='grid grid-cols-4 grid-rows-2 gap-2 mt-5'>
+    <div className='md:grid grid-cols-4 grid-rows-1 gap-2 mt-1'>
     {
     laptops.map((laptop,index)=>{
         return <ShowLaptop key={index} laptop={laptop}/>;})
