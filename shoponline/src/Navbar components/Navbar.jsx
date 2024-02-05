@@ -34,6 +34,7 @@ const Navbar = () => {
       <div className="mr-[10px] md:mr-[20px]">
       <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-5" />
       <FontAwesomeIcon icon={faCartPlus} className="mr-6"/>
+      <Link to="/admin" >admin</Link>
         
       </div>
 

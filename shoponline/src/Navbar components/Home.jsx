@@ -1,11 +1,15 @@
-import React from 'react'
-
+import React from "react";
+import Body from "../body components/Body";
+import Navabarup from "./Navabarup";
+import Navbar from "./Navbar";
 const Home = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      <Navabarup />
+      <Navbar />
+      <Body />
+      </>
+  );
+};
 
-export default Home
+export default Home;
