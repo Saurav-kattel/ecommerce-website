@@ -1,12 +1,12 @@
 import './App.css';
-import Home from './Navbar components/Home';
+import Home from './componentskobau/Navbar components/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Types from './Navbar components/Types';
-import Bands from './Navbar components/Bands';
-import Login from './Navbar components/Login';
-import Addtocart from './Navbar components/Addtocart';
-import Signup from './Navbar components/Signup';
-import Admin from './admin/Admin';
+import Types from './componentskobau/Navbar components/Types';
+import Bands from './componentskobau/Navbar components/Bands';
+import Login from './componentskobau/Navbar components/Login';
+import Addtocart from './componentskobau/Navbar components/Addtocart';
+import Signup from './componentskobau/Navbar components/Signup';
+import Admin from './componentskobau/admin/Admin';
 function App() {
   return (
     <BrowserRouter>
