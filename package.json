@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "concurrently": "^8.2.2",
-    "react-hot-loader": "^4.13.1"
-  }
-}
