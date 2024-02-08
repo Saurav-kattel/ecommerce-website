@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
+const FormData = require('form-data');
 
 const Admin = () => {
+  let formref=useRef(null);
   const [fomvalue, setfomvalue] = useState({
     name: "",
     type: "",
@@ -14,25 +16,39 @@ const Admin = () => {
     setfomvalue({ ...fomvalue, [e.target.name]: e.target.value });
   };
 
-  
   const handleFileChange = (e) => {
     setfomvalue({ ...fomvalue, img: e.target.files[0] }); // Capture the selected image file
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
+    try{
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", fomvalue.name);
+    formDataToSend.append("type", fomvalue.type);
+    formDataToSend.append("brand", fomvalue.brand);
+    formDataToSend.append("desc", fomvalue.desc);
+    formDataToSend.append("price", fomvalue.price);
+    formDataToSend.append("img", fomvalue.img);
 
     const response = await fetch("http://localhost:5000/api/admin/upload-data", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, type, brand, desc, price }),
+      body: formDataToSend,
     });
     const json = await response.json();
     console.log(json);
+    formref.current.reset();
+    setfomvalue({
+      name: "",
+      type: "",
+      brand: "",
+      desc: "",
+      price: "",
+      img: null,
+    });
+    
+  } catch (err) {
+    console.log(err);}
   };
 
   return (
@@ -41,22 +57,23 @@ const Admin = () => {
         <form
           className="flex flex-col  w-96 "
           method="post"
+          action="api/admin/upload-data"
           encType="multipart/form-data"
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+          ref={formref}
+          >
           <label htmlFor="name">Product-Name</label>
-          <input type="text" id="name" name="name" onChange={handleonChange} />
+          <input type="text" id="name" name="name" onChange={handleonChange} minLength={3} required />
           <label htmlFor="type">Type</label>
-          <input type="text" id="type" name="type" onChange={handleonChange} />
+          <input type="text" id="type" name="type" onChange={handleonChange}  minLength={3} required />
           <label htmlFor="price">Price</label>
-          <input type="text" id="price" name="price" onChange={handleonChange} />
+          <input type="text" id="price" name="price" onChange={handleonChange}  minLength={2} required />
           <label htmlFor="brand">brand</label>
-          <input type="text" id="brand" name="brand" onChange={handleonChange} />
+          <input type="text" id="brand" name="brand" onChange={handleonChange}  minLength={3} required />
           <label htmlFor="desc">description</label>
-          <input type="text" id="desc" name="desc" onChange={handleonChange} />
-        </form>
-        <form className="mt-10" action="api/admin/upload-img" method="post" encType="multipart/form-data">
+          <input type="text" id="desc" name="desc" onChange={handleonChange}  minLength={3} required/>
           <label htmlFor="img">Img</label>
-          <input type="file" id="img" name="img" />
+          <input type="file" id="img" name="img"  onChange={handleFileChange} />
           <button className="mt-5 bg-black text-white p-1 w-48" type="submit">
             Submit
           </button>
