@@ -1,18 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import ShowLaptop from './ShowLaptop';
-const Laptops = () => {
-    const laptops=[{
-        img: require("../../pictureskobau/pictures/macbook_air_m1__dxctrdvvxm4i_large.jpg"),
-        name: "MacBook Air 13",
-        price:"$2099.99"
-      },
-      {img: require("../../pictureskobau/pictures/macbook_air_m1__dxctrdvvxm4i_large.jpg"),
-        name: "Dell XPS 15",
-      price: "$1749.99"},
-      {img: require("../../pictureskobau/pictures/macbook_air_m1__dxctrdvvxm4i_large.jpg"),
-      name: "Dell XPS 15",
-    price: "$1749.99"}
-];
+import { fetchlaptop,laptopError,laptopLoading,laptopdata } from '../../features/Laptopslice';
+ 
+const  Laptops = () => {
+const dispatch=useDispatch();
+const  laptoploadings=useSelector(laptopLoading);
+const laptperror=useSelector(laptopError)
+const laptopdta=useSelector(laptopdata)
+
+useEffect(()=>{
+  dispatch(fetchlaptop());
+},[dispatch])
+
+if (laptoploadings) {
+  return <div>Loading...</div>;
+}
+
+if (laptperror) {
+  return <div>Error: {laptperror}</div>;
+}
+
 
   return (
     <div className='ml-10 mt-10 h-'>
@@ -22,10 +30,14 @@ const Laptops = () => {
         </div>
 
     <div className='md:grid grid-cols-4 grid-rows-1 gap-2 mt-1'>
-    {
+    {/* {
     laptops.map((laptop,index)=>{
         return <ShowLaptop key={index} laptop={laptop}/>;})
-    }
+    } */}
+
+    {laptopdta && laptopdta.map((laptop,index)=>{
+      return  <ShowLaptop key={index} laptop={laptop}/>;
+    })}
 </div></div>
   )
 }
