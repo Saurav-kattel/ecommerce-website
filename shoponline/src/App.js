@@ -7,6 +7,8 @@ import Login from './componentskobau/Navbar components/Login';
 import Addtocart from './componentskobau/Navbar components/Addtocart';
 import Signup from './componentskobau/Navbar components/Signup';
 import Admin from './componentskobau/admin/Admin';
+import Iteminsider from './componentskobau/insider/Iteminsider';
+import ShowLaptop from './componentskobau/body components/ShowLaptop';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +21,8 @@ function App() {
       <Route exact path='/signup' element={<Signup/>}/>
       <Route exact path='/addtocart' element={<Addtocart/>}/>
       <Route  exact path='/admin' element={<Admin/>}/>
+      <Route exact path='/showlaptop' element={<ShowLaptop/>} />
+      <Route exact path='/laptopinsider' element={<Iteminsider/>} />
       </Routes>
       </div>
       </BrowserRouter>

@@ -30,12 +30,7 @@ if (laptperror) {
         </div>
 
     <div className='md:grid grid-cols-4 grid-rows-1 gap-2 mt-1'>
-    {/* {
-    laptops.map((laptop,index)=>{
-        return <ShowLaptop key={index} laptop={laptop}/>;})
-    } */}
-
-    {laptopdta && laptopdta.map((laptop,index)=>{
+    {laptopdta && laptopdta.slice(0,4).map((laptop,index)=>{
       return  <ShowLaptop key={index} laptop={laptop}/>;
     })}
 </div></div>
