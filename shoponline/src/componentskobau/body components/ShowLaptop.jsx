@@ -1,8 +1,10 @@
 import React, { useState,useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { openlaptop } from '../../features/Laptopslice';
+import { fetchlaptopbyid } from '../../features/Laptopslice';
 import { useNavigate } from 'react-router-dom';
 
+
+// get the laptop as props from parent components
 const ShowLaptop = ({laptop}) => {
   const [imageurl,setimageurl]=useState('');
   const dispatch=useDispatch();
@@ -13,6 +15,7 @@ const ShowLaptop = ({laptop}) => {
       try {
         // Construct image URL from backend endpoint and image path
         const imageurl = `http://localhost:5000/${laptop.img}`;
+        // fetching so that we can see the image  in our show page
         const response = await fetch(imageurl);
 
         if (!response.ok) {
@@ -27,9 +30,10 @@ const ShowLaptop = ({laptop}) => {
     fetchImage();
   }, [laptop.img]);
 
+// handle when some laptop is clicked
 const handleopen=(e)=>{
   e.preventDefault()
-  dispatch(openlaptop(laptop));
+  dispatch(fetchlaptopbyid(laptop._id));
   navigate('/laptopinsider');
 }
 

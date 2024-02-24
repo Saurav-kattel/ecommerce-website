@@ -1,27 +1,28 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
 
 const initialState ={
-  initialstate:[{loading: false,
+loading: false,
     error: null,
     laptopData: null,
-    text:[]}]
-
-
+    laptopdatabyid:null
 }
 
-export const fetchlaptop = createAsyncThunk('posts/fetchlaptop', async () => {
+// fetching the filtred data of laptop in redux using asyncthunk
+export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async () => {
     const response = await fetch("http://localhost:5000/api/admin/filtered-data?type=Laptop")
+    return await  response.json()
+  })
+
+// fetch the data by id
+  export const fetchlaptopbyid = createAsyncThunk(`/laptop/fetchlaptopbyid`, async (laptopid) => {
+    const response = await fetch(`http://localhost:5000/api/admin/laptop/${laptopid}`)
     return await  response.json()
   })
 
 export const Laptopslice = createSlice({
     name: "laptopslice",
     initialState,
-    reducers: {
-      openlaptop:(state,action)=>{
-          state.text.push(action.payload);
-      }
-    },
+    reducers: {},
     // extrareducers allows you to handle actions from other slices or additional reducer logic that doesn't belong 
     // to a specific action creator defined within the slice.
     extraReducers: (builder) => {
@@ -41,6 +42,19 @@ export const Laptopslice = createSlice({
           .addCase(fetchlaptop.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
+          })
+          .addCase(fetchlaptopbyid.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(fetchlaptopbyid.fulfilled, (state, action) => {
+            state.loading = false;
+            state.error = null;
+            state.laptopdatabyid = action.payload;
+          })
+          .addCase(fetchlaptopbyid.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
           });
       }
 });
@@ -48,5 +62,6 @@ export const Laptopslice = createSlice({
 export const laptopdata=(state)=>state.laptopslice.laptopData;
 export const  laptopError=(state)=>state.laptopslice.error;
 export  const  laptopLoading=(state)=>state.laptopslice.loading;
-export const {openlaptop} =Laptopslice.actions
+export const laptopdataid=(state)=>state.laptopslice.laptopdatabyid;
+// The function below is called a selector and returns a value based on the current state of the store.
 export default Laptopslice.reducer;
