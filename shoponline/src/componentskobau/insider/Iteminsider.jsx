@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { laptopError, laptopLoading, laptopdataid } from "../../features/Laptopslice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar components/Navbar";
+import { addtocart } from "../../features/Laptopslice";
+import { useNavigate } from 'react-router-dom';
 
 // when some laptop is clicked this page is shown
 const Iteminsider = () => {
@@ -39,6 +41,17 @@ const Iteminsider = () => {
   // usestate for increasing the cart no
 const [no,setno]=useState(1);
 
+
+const dispatch=useDispatch();
+// const [id,setid]=useState(null);
+//  function which will add items into the cart
+const history=useNavigate();
+const handlecart=()=>{
+  history('/addtocart')
+  dispatch(addtocart(laptopdtabyid._id))
+}
+
+
 // toggle desc when clicked it becomes true  another click false
 const [desc,setdesc]=useState(false);
 const handledesc=()=>{
@@ -66,11 +79,12 @@ const handledesc=()=>{
           <h3 className="border border-black pl-3 pr-3 text-lg font-semibold">{no}</h3>
           <button className=" bg-slate-950 p-1 text-white pl-3 pr-3 text-lg rounded-tr-md rounded-br-md"  onClick={()=>{setno(no+1)}}>+</button>
           </div>
-          <div className="flex items-center bg-black text-white ml-6 p-1 pl-4 pr-4 rounded-md">
+          <button onClick={handlecart} className="flex items-center bg-black text-white ml-6 p-1 pl-4 pr-4 rounded-md">
+          {/* cart */}
           <span>
   <FontAwesomeIcon icon={faCartPlus} className="mr-2 text-white" />
   Add to Cart
-</span></div>
+</span></button>
         </div>
         <section className="mt-8">
           <div className="flex flex-row justify-between mr-10 border-t-2 pt-1" onClick={handledesc}>

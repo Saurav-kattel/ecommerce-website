@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { combineReducers } from '@reduxjs/toolkit';
 
+
 const persistConfig = {
     key: 'root', // Key is required, it is used to store data in storage
     storage, // Use the storage engine you imported
@@ -15,5 +16,9 @@ const reducer=combineReducers({
 const persistreducer=persistReducer(persistConfig,reducer)
 
 export const store = configureStore({
-    reducer:persistreducer
+    reducer: persistreducer,
+    middleware:getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

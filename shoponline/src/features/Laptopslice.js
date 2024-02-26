@@ -4,17 +4,19 @@ const initialState ={
 loading: false,
     error: null,
     laptopData: null,
-    laptopdatabyid:null
+    laptopdatabyid:null,
+    cart:[]
 }
 
 // fetching the filtred data of laptop in redux using asyncthunk
 export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async () => {
-    const response = await fetch("http://localhost:5000/api/admin/filtered-data?type=Laptop")
+    const url=process.env.REACT_APP_API_URL;
+    const response = await fetch(`http://localhost:5000/api/admin/filtered-data?type=Laptop`)
     return await  response.json()
   })
 
 // fetch the data by id
-  export const fetchlaptopbyid = createAsyncThunk(`/laptop/fetchlaptopbyid`, async (laptopid) => {
+  export const fetchlaptopbyid = createAsyncThunk(`laptop/fetchlaptopbyid`, async (laptopid) => {
     const response = await fetch(`http://localhost:5000/api/admin/laptop/${laptopid}`)
     return await  response.json()
   })
@@ -22,7 +24,11 @@ export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async () 
 export const Laptopslice = createSlice({
     name: "laptopslice",
     initialState,
-    reducers: {},
+    reducers: {
+      addtocart:(state,action)=>{
+        return {...state,cart:action.payload}
+      }
+    },
     // extrareducers allows you to handle actions from other slices or additional reducer logic that doesn't belong 
     // to a specific action creator defined within the slice.
     extraReducers: (builder) => {
@@ -63,5 +69,7 @@ export const laptopdata=(state)=>state.laptopslice.laptopData;
 export const  laptopError=(state)=>state.laptopslice.error;
 export  const  laptopLoading=(state)=>state.laptopslice.loading;
 export const laptopdataid=(state)=>state.laptopslice.laptopdatabyid;
+export const cart=(state)=>state.laptopslice.cart;
 // The function below is called a selector and returns a value based on the current state of the store.
+export const {addtocart}=Laptopslice.actions
 export default Laptopslice.reducer;
