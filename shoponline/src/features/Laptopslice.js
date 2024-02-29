@@ -5,7 +5,7 @@ loading: false,
     error: null,
     laptopData: null,
     laptopdatabyid:null,
-    cart:[]
+    cart:[],
 }
 
 // fetching the filtred data of laptop in redux using asyncthunk
@@ -26,7 +26,21 @@ export const Laptopslice = createSlice({
     initialState,
     reducers: {
       addtocart:(state,action)=>{
-        return {...state,cart:action.payload}
+        return {
+          ...state,
+          cart: [...state.cart, action.payload] // Add the payload to the cart array
+        };
+      },
+      reset:(state,action)=>{
+        return {...state,cart:[]}
+      },
+      deletecart:(state,action)=>{
+        const index=action.payload;
+        return {...state,
+        cart:[
+          ...state.cart.slice(0, index),
+          ...state.cart.slice(index + 1),
+        ]}
       }
     },
     // extrareducers allows you to handle actions from other slices or additional reducer logic that doesn't belong 
@@ -71,5 +85,5 @@ export  const  laptopLoading=(state)=>state.laptopslice.loading;
 export const laptopdataid=(state)=>state.laptopslice.laptopdatabyid;
 export const cart=(state)=>state.laptopslice.cart;
 // The function below is called a selector and returns a value based on the current state of the store.
-export const {addtocart}=Laptopslice.actions
+export const {addtocart,reset,deletecart}=Laptopslice.actions
 export default Laptopslice.reducer;

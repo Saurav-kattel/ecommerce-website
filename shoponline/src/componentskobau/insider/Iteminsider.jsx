@@ -45,10 +45,9 @@ const [no,setno]=useState(1);
 const dispatch=useDispatch();
 // const [id,setid]=useState(null);
 //  function which will add items into the cart
-const history=useNavigate();
+// const history=useNavigate();
 const handlecart=()=>{
-  history('/addtocart')
-  dispatch(addtocart(laptopdtabyid._id))
+  dispatch(addtocart(laptopdtabyid))
 }
 
 
