@@ -21,10 +21,12 @@ const Addtocart = () => {
     if (selector && selector.length > 0) {
       const fetchImages = async () => {
         try {
-          // promise.all fetches the images cuncurrently or say waits unit all data is fetched
+          // promise.all fetches the images cuncurrently or say waits untill all data is fetched
           const urls = await Promise.all(selector.map(async (data) => {
             const imageUrl = `http://localhost:5000/${data.img}`;
             const response = await fetch(imageUrl);
+            // const laprice= await data.price;
+            // setprice(prevPrice => prevPrice + laprice);
             if (!response.ok) {
               throw new Error("Failed to fetch image");
             }
@@ -40,6 +42,29 @@ const Addtocart = () => {
   }, [selector]);
   console.log(imgUrls);
 
+const [price,setprice]=useState(0);
+useEffect(()=>{
+  if (selector && selector.length > 0){
+    try{
+      let totalPrice = 0;
+      selector.forEach((data) => {
+        // removes the commas and replace by white space and trim removes the white space
+        const formattedPrice = data.price.replace(/,/g, '').trim();
+        // Check if data.price is a valid number before adding it to totalPrice
+        // NaN fro not a number 
+        if (!isNaN(formattedPrice)) {
+          totalPrice += parseInt(formattedPrice);
+        } else {
+          console.warn("Invalid price for item:", data.name);
+        }
+      });
+      setprice(totalPrice);
+    }catch(error){
+      console.error("Error fetching images:", error);
+    }
+  }
+},[selector])
+
 
   //for resetting the array in reducer 
 const dispatch=useDispatch();
@@ -51,8 +76,6 @@ const handlereset=()=>{
 const hanledeleteitem=(e)=>{
   dispatch(deletecart(e))
 }
-// for adding the prices which the user has added to the cart
-const [price,setprice]=useState(0);
 
 
   return (
@@ -63,7 +86,7 @@ const [price,setprice]=useState(0);
         <div className="container py-5">
           <div className="flex flex-row justify-around my-3">
             <div className="col-md-8">
-              <div className="card mb-4">
+              <div className="mb-4">
                 <div className="card-header py-3">
                   <h5 className=" text-2xl font-semibold">Cart Quantity {selector.length}</h5>
                 </div>
@@ -85,7 +108,7 @@ const [price,setprice]=useState(0);
                         </div>
                       </div>
 
-                      <div className="mb-4">
+                      <div className="mb-4 mr-10">
                         <p className="mb-2">
                           <strong>{datas.name}</strong>
                         </p>
@@ -107,7 +130,7 @@ const [price,setprice]=useState(0);
                         </button>
                       </div>
 
-                      <div className=" mb-4 ml-16">
+                      <div className=" mb-4 mr-10">
                         <div className="flex flex-row mb-4" style={{ maxWidth: "300px" }}>
                           ``
                           <button
@@ -181,7 +204,7 @@ const [price,setprice]=useState(0);
                   <ul className="list-group list-group-flush">
                     <li className="mb-1 border-0 px-0 pb-0">
                       Products
-                      <span className="ml-20">$53.98</span>
+                      <span className="ml-20">R.S {price}</span>
                     </li>
                     <li className="mb-1 px-0 border-b-2">
                       Shipping
@@ -195,7 +218,7 @@ const [price,setprice]=useState(0);
                         </strong>
                       </div>
                       <span className="ml-10">
-                        <strong>$53.98</strong>
+                        <strong>R.S {price}</strong>
                       </span>
                     </li>
                   </ul>
