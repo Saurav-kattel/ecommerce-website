@@ -1,4 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope,faPhone } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
   return (
@@ -9,8 +11,15 @@ const Footer = () => {
       <h3>Sundhara,Lalitpur</h3>
       <h3>Bagmati 44600</h3>
       <h3>Nepal</h3>
-      <h3><img src="" alt="email-logo" />thaparoman970@gmail.com</h3>
-      <h4><img alt="phone-logo"></img>9806580938</h4>
+      <div className='flex flex-row'>
+      <span><FontAwesomeIcon icon={faEnvelope} /></span>
+      <h3 className='ml-4'>thaparoman970@gmail.com</h3>
+      </div>
+      <div className='flex flex-row'>
+        <span><FontAwesomeIcon icon={faPhone} /></span>
+      <h4 className='ml-10'>9806580938</h4>
+      </div>
+      
     </div>
     <div className='mt-5 md:mt-10'>
         <h2 className='font-semibold mb-2'>Shop</h2>

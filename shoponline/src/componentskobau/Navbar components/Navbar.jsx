@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars,faMagnifyingGlass,faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Typeshover from "./Typeshover";
+import Bands from "./Bands";
 
 const Navbar = () => {
   return (
@@ -17,16 +19,17 @@ const Navbar = () => {
 
       {/* different topics for navbar */}
       <div className="hidden md:block">
-        <ul>
-          <Link to="/" className="mx-2 text-xl">
+        <ul className="flex flex-row">
+          <Link to="/" className="mx-4 text-xl">
             Home
           </Link>
-          <Link to="/types" className="mx-2 text-xl">
-            Shop
-          </Link>
-          <Link to="/brands" className="mx-2 text-xl">
-            Brands
-          </Link>
+          <div className="mx-4">
+          <Typeshover/>
+          </div>
+          <div className="mx-4">
+          <Bands/>
+          </div>
+          
         </ul>
       </div>
 

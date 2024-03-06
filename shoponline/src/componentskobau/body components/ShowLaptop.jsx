@@ -38,7 +38,7 @@ const handleopen=(e)=>{
 }
 
   return (
-    <div className='flex flex-col mt-4 bg-white h-96 w-80 p-5 rounded-xl'
+    <div className='flex flex-col mt-4 bg-white h-fit w-80 p-5 rounded-xl'
     onClick={handleopen}>
     <div>
       <img className='h-64 rounded-xl' src={imageurl} alt={laptop.name}/>

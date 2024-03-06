@@ -31,28 +31,27 @@ const Signup = () => {
     setvalue({ ...value, [e.target.name]: e.target.value });
   };
   return (
-    <div  className="container h-screen flex justify-center">
-      <form onSubmit={handleSubmit} className="w-1/4 container mt-40">
-        <div className="form-group">
+    <div  className="h-screen flex justify-center items-center">
+      <form onSubmit={handleSubmit} className="w-60">
+        <div className="flex flex-col ">
           <label htmlFor="name"> Name</label>
           <input
             name="name"
             type="text"
-            className="form-control"
+            className="form-control p-1"
             id="name"
-            aria-describedby="emailHelp"
             placeholder="Enter name"
             onChange={onChange}
             minLength={5}
             required
           />
         </div>
-        <div className="form-group">
+        <div className="flex flex-col">
           <label htmlFor="exampleInputEmail1">Email address</label>
           <input
             name="email"
             type="email"
-            className="form-control"
+            className=" p-1"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter email"
@@ -61,12 +60,12 @@ const Signup = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="flex flex-col">
           <label htmlFor="password">Password</label>
           <input
             name="password"
             type="password"
-            className="form-control"
+            className="p-1"
             id="password"
             placeholder="Password"
             onChange={onChange}
@@ -74,12 +73,12 @@ const Signup = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="flex flex-col">
           <label htmlFor="cpassword">Confirm Password</label>
           <input
             name="cpassword"
             type="password"
-            className="form-control"
+            className="p-1"
             id="cpassword"
             placeholder="Confirm Password"
             onChange={onChange}
@@ -87,7 +86,7 @@ const Signup = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary bg-primary">
+        <button type="submit" className="p-2 bg-amber-600 rounded-lg mt-3">
           Submit
         </button>
       </form>

@@ -9,6 +9,9 @@ import Signup from './componentskobau/Navbar components/Signup';
 import Admin from './componentskobau/admin/Admin';
 import Iteminsider from './componentskobau/insider/Iteminsider';
 import ShowLaptop from './componentskobau/body components/ShowLaptop';
+import Typeshover from './componentskobau/Navbar components/Typeshover';
+import Navbarupocurrency from './componentskobau/Navbar components/Navbarupcurrency';
+import LaptopPage from './componentskobau/body components/LaptopPage';
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +26,9 @@ function App() {
       <Route  exact path='/admin' element={<Admin/>}/>
       <Route exact path='/showlaptop' element={<ShowLaptop/>} />
       <Route exact path='/laptopinsider' element={<Iteminsider/>} />
+      <Route exact path='/type' element={<Typeshover/>} />
+      <Route exact path='/currency' element={<Navbarupocurrency/>}/>
+      <Route exact path='laptoppage' element={<LaptopPage/>}/>
       </Routes>
       </div>
       </BrowserRouter>
