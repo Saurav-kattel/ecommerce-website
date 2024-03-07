@@ -29,7 +29,6 @@ const Navbar = () => {
           <div className="mx-4">
           <Bands/>
           </div>
-          
         </ul>
       </div>
 

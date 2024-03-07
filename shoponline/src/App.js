@@ -11,7 +11,7 @@ import Iteminsider from './componentskobau/insider/Iteminsider';
 import ShowLaptop from './componentskobau/body components/ShowLaptop';
 import Typeshover from './componentskobau/Navbar components/Typeshover';
 import Navbarupocurrency from './componentskobau/Navbar components/Navbarupcurrency';
-import LaptopPage from './componentskobau/body components/LaptopPage';
+import LaptopPage from './componentskobau/body components/categorypages/LaptopPage';
 function App() {
   return (
     <BrowserRouter>

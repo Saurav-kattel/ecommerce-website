@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar components/Navbar";
 import { addtocart } from "../../features/Laptopslice";
-import { useNavigate } from 'react-router-dom';
+import Footer from "../footer/Footer";
+import Footermuni from "../footer/Footermuni";
 
 // when some laptop is clicked this page is shown
 const Iteminsider = () => {
@@ -103,7 +104,12 @@ const handledesc=()=>{
         </section>
         </div>
         </div>
-    </div></>
+    </div>
+    <Footer/>
+    <Footermuni/>
+    </>
+
+
   );
 };
 

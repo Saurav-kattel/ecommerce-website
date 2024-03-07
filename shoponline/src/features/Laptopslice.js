@@ -9,11 +9,18 @@ loading: false,
 }
 
 // fetching the filtred data of laptop in redux using asyncthunk
-export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async () => {
-    const url=process.env.REACT_APP_API_URL;
-    const response = await fetch(`http://localhost:5000/api/admin/filtered-data?type=Laptop`)
-    return await  response.json()
-  })
+export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async (type) => {
+  try {
+      const response = await fetch(`http://localhost:5000/api/admin/filtered-data?type=${type}`);
+      if (!response.ok) {
+          throw new Error('Failed to fetch');
+      }
+      return await response.json();
+  } catch (error) {
+      console.error('Error fetching laptop data:', error);
+      throw error;
+  }
+});
 
 // fetch the data by id
   export const fetchlaptopbyid = createAsyncThunk(`laptop/fetchlaptopbyid`, async (laptopid) => {
