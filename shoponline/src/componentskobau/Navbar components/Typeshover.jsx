@@ -4,7 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchlaptop } from "../../features/Laptopslice";
-
+import { setcategory } from "../../features/Laptopslice";
 const solutions = [{ name: "Laptop" }, { name: "Desktops" }, { name: "Monitors" }];
 
 export default function Typeshover() {
@@ -12,8 +12,10 @@ export default function Typeshover() {
   const navigate = useNavigate();
 
   const Handletype = (data) => {
-    console.log(data)
+    console.log(data);
+    dispatch(setcategory(data));
     dispatch(fetchlaptop(data));
+    // data value is string like Laptop ,Desktop
     navigate("/LaptopPage");
   };
 
@@ -36,19 +38,21 @@ export default function Typeshover() {
           <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
             <div className="p-4">
               <span className="font-semibold p-1 text-lg">Categories</span>
-              {solutions.map((item) => (
-                <div
-                  key={item.name}
-                  onClick={() => Handletype(item.name)}
-                  className="group relative flex gap-x-2 rounded-lg p-1 hover:bg-gray-200">
-                  <div>
-                    <a className="font-semibold text-gray-900">
-                      {item.name}
-                      <span className="absolute inset-0" />
-                    </a>
+              {solutions.map((item) => {
+                return (
+                  <div
+                    key={item.name}
+                    onClick={() => Handletype(item.name)}
+                    className="group relative flex gap-x-2 rounded-lg p-1 hover:bg-gray-200">
+                    <div>
+                      <a className="font-semibold text-gray-900">
+                        {item.name}
+                        <span className="absolute inset-0" />
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               <span className="p-1">Show all</span>
             </div>
           </div>
