@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { cart,reset,deletecart} from "../../features/Laptopslice";
+import { useSelector, useDispatch } from "react-redux";
+import { cart, reset, deletecart, decreaseItemQuantity, addtocart } from "../../features/Laptopslice";
 import Navbar from "./Navbar";
 import Navabarup from "./Navabarup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus,faMinus,faHeart ,faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Addtocart = () => {
   // getting the array of laptops detail which is stored in array of reducer
@@ -42,40 +42,33 @@ const Addtocart = () => {
   }, [selector]);
   console.log(imgUrls);
 
-const [price,setprice]=useState(0);
-useEffect(()=>{
-  if (selector && selector.length > 0){
-    try{
-      let totalPrice = 0;
-      selector.forEach((data) => {
-        // removes the commas and replace by white space and trim removes the white space
-        const formattedPrice = data.price.replace(/,/g, '').trim();
-        // Check if data.price is a valid number before adding it to totalPrice
-        // NaN fro not a number 
-        if (!isNaN(formattedPrice)) {
-          totalPrice += parseInt(formattedPrice);
-        } else {
-          console.warn("Invalid price for item:", data.name);
+  const [price, setprice] = useState(0);
+  useEffect(() => {
+    if (selector && selector.length > 0) {
+      try {
+        let totalPrice = 0;
+
+        for (let item of selector) {
+          totalPrice += item.price * item.quantity
         }
-      });
-      setprice(totalPrice);
-    }catch(error){
-      console.error("Error fetching images:", error);
+        setprice(totalPrice);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
     }
-  }
-},[selector])
+  }, [selector])
 
 
   //for resetting the array in reducer 
-const dispatch=useDispatch();
-const handlereset=()=>{
-  dispatch(reset());
-}
+  const dispatch = useDispatch();
+  const handlereset = () => {
+    dispatch(reset());
+  }
 
-// dispatches the action which is deleltecart
-const hanledeleteitem=(e)=>{
-  dispatch(deletecart(e))
-}
+  // dispatches the action which is deleltecart
+  const hanledeleteitem = (e) => {
+    dispatch(deletecart(e))
+  }
 
 
   return (
@@ -100,11 +93,11 @@ const hanledeleteitem=(e)=>{
                           className="bg-image"
                           data-mdb-ripple-color="light">
                           {imgUrls[index] &&
-                          <img
-                            src={imgUrls[index]}
-                            className="w-48"
-                            alt="Blue Jeans Jacket"
-                          />}
+                            <img
+                              src={imgUrls[index]}
+                              className="w-48"
+                              alt="Blue Jeans Jacket"
+                            />}
                         </div>
                       </div>
 
@@ -119,7 +112,7 @@ const hanledeleteitem=(e)=>{
                           className="bg-blue-600 p-2 text-white  me-5 mb-2  rounded-md"
                           data-mdb-toggle="tooltip"
                           title="Remove item">
-                          <i className="fas fa-trash" onClick={()=>hanledeleteitem(index)}><FontAwesomeIcon icon={faTrash} /></i>
+                          <i className="fas fa-trash" onClick={() => hanledeleteitem(index)}><FontAwesomeIcon icon={faTrash} /></i>
                         </button>
                         <button
                           type="button"
@@ -134,16 +127,18 @@ const hanledeleteitem=(e)=>{
                         <div className="flex flex-row mb-4" style={{ maxWidth: "300px" }}>
                           ``
                           <button
+                            onClick={() => { dispatch(decreaseItemQuantity(datas)) }}
                             className="p-1 bg-blue-600 px-3 me-2  rounded-md"
-                           >
+                          >
                             <i><FontAwesomeIcon icon={faMinus} /></i>
                           </button>
                           <div className="form-outline">
                             <label className="form-label" htmlFor="form1">
-                              Quantity
+                              Quantity {datas.quantity}
                             </label>
                           </div>
                           <button
+                            onClick={() => { dispatch(addtocart(datas)) }}
                             className="p-1 bg-blue-600 px-3 ms-2  rounded-md"
                           >
                             <i><FontAwesomeIcon icon={faPlus} /></i>
@@ -228,7 +223,7 @@ const hanledeleteitem=(e)=>{
                   </button>
                 </div>
               </div>
-                  <button type="button" onClick={handlereset} className="p-2 bg-red-500 text-white rounded-md ml-24 mt-4 "> Reset</button>
+              <button type="button" onClick={handlereset} className="p-2 bg-red-500 text-white rounded-md ml-24 mt-4 "> Reset</button>
             </div>
           </div>
         </div>
