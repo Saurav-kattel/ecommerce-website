@@ -1,3 +1,4 @@
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -7,23 +8,29 @@ const initialState = {
   laptopdatabyid: null,
   cart: [],
 }
-
+ 
 // fetching the filtred data of laptop in redux using asyncthunk
-export const fetchlaptop = createAsyncThunk('get/fetchfilteredlaptop', async (type) => {
+export const fetchlaptop = createAsyncThunk("get/fetchfilteredlaptop", async (type) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/admin/filtered-data?type=${type}`);
+    let response;
+    if (type === "Laptop" || type === "Desktops" || type === "Monitors") {
+      response = await fetch(`http://localhost:5000/filter/filtered-data?type=${type}`);
+    } else {
+      response = await fetch(`http://localhost:5000/filter/filtered-brand?brand=${type}`);
+    }
     if (!response.ok) {
-      throw new Error('Failed to fetch');
+      throw new Error("Failed to fetch");
     }
     return await response.json();
   } catch (error) {
-    console.error('Error fetching laptop data:', error);
-    throw error;
+    console.error("Error fetching laptop data:", error);
+    throw new Error("Network request failed!");
   }
 });
 
 // fetch the data by id
 export const fetchlaptopbyid = createAsyncThunk(`laptop/fetchlaptopbyid`, async (laptopid) => {
+
   const response = await fetch(`http://localhost:5000/api/admin/laptop/${laptopid}`)
   return await response.json()
 })
@@ -49,6 +56,10 @@ function decreaseQunaity(state, payload) {
   return state.map((item) => item._id === existingItem._id ? { ...item, quantity: item.quantity - 1 } : item)
 }
 
+=======
+  const response = await fetch(`http://localhost:5000/api/admin/laptop/${laptopid}`);
+  return await response.json();
+});
 
 export const Laptopslice = createSlice({
   name: "laptopslice",
@@ -81,10 +92,12 @@ export const Laptopslice = createSlice({
     }
   },
   // extrareducers allows you to handle actions from other slices or additional reducer logic that doesn't belong 
+
+  // extrareducers allows you to handle actions from other slices or additional reducer logic that doesn't belong
   // to a specific action creator defined within the slice.
   extraReducers: (builder) => {
     builder
-      // .addCase() is a method provided by Redux Toolkit's createSlice 
+      // .addCase() is a method provided by Redux Toolkit's createSlice
       // function for defining reducer logic. It allows you to define how your slice's
       //  state should be updated in response to specific actions.
       .addCase(fetchlaptop.pending, (state) => {
@@ -121,6 +134,9 @@ export const laptopError = (state) => state.laptopslice.error;
 export const laptopLoading = (state) => state.laptopslice.loading;
 export const laptopdataid = (state) => state.laptopslice.laptopdatabyid;
 export const cart = (state) => state.laptopslice.cart;
+export const category = (state) => state.laptopslice.category;
 // The function below is called a selector and returns a value based on the current state of the store.
-export const { addtocart, reset, deletecart, decreaseItemQuantity } = Laptopslice.actions
+export const { addtocart, reset, deletecart, decreaseItemQuantity,setcategory } = Laptopslice.actions
+
+// The function below is called a selector and returns a value based on the current state of the stor
 export default Laptopslice.reducer;
